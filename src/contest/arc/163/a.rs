@@ -10,7 +10,6 @@ fn main() {
     }
     // for each test case:
     for (_, s) in cases {
-        let mut subs = vec![vec![s[0]]]; // set of substrings
         let mut res = false;
         for i in 1..s.len() {
             if (is_ordered(&s[..i], &s[i..])) {

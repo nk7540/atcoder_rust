@@ -24,8 +24,7 @@ fn main() {
     let mut stack = vec![s];
     let mut visited = vec![vec![false; w]; h];
     while let Some((x, y)) = stack.pop() {
-        for i in 0..4 {
-            let (dx, dy) = dxy[i];
+        for (dx, dy) in dxy {
             let nx = x as i32 + dx;
             let ny = y as i32 + dy;
 

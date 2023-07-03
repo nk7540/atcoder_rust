@@ -26,12 +26,11 @@ fn main() {
             let mut visited = vec![vec![false; 10]; 10];
             let mut count = 0;
             while let Some((x, y)) = stack.pop() {
-                for dir in 0..4 {
-                    let (dx, dy) = dxy[dir];
+                for (dx, dy) in dxy {
                     let nx = x as i32 + dx;
                     let ny = y as i32 + dy;
 
-                    if !(nx >= 0 && nx < 10 && ny >= 0 && ny < 10) {
+                    if !((0..10).contains(&nx) && (0..10).contains(&ny)) {
                         continue;
                     }
                     let nx = nx as usize;
