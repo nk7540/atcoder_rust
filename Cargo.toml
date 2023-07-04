@@ -171,9 +171,36 @@ path = "src/contest/beginners_selection/exhaustive/arc029a.rs"
 name = "beginners_selectionexhaustive_abc002d"
 path = "src/contest/beginners_selection/exhaustive/abc002d.rs"
     [[bin]]
-name = "beginners_selectionlake_counting_atc001a"
-path = "src/contest/beginners_selection/lake_counting/atc001a.rs"
+name = "beginners_selectiondfs_atc001a"
+path = "src/contest/beginners_selection/dfs/atc001a.rs"
     [[bin]]
-name = "beginners_selectionlake_counting_arc031b"
-path = "src/contest/beginners_selection/lake_counting/arc031b.rs"
+name = "beginners_selectiondfs_arc031b"
+path = "src/contest/beginners_selection/dfs/arc031b.rs"
+    [[bin]]
+name = "beginners_selectiondfs_arc037b"
+path = "src/contest/beginners_selection/dfs/arc037b.rs"
+    [[bin]]
+name = "beginners_selectiondfs_aoj1160"
+path = "src/contest/beginners_selection/dfs/aoj1160.rs"
+    [[bin]]
+name = "beginners_selectionbfs_abc007c"
+path = "src/contest/beginners_selection/bfs/abc007c.rs"
+    [[bin]]
+name = "beginners_selectionbfs_joi2011yoe"
+path = "src/contest/beginners_selection/bfs/joi2011yoe.rs"
+    [[bin]]
+name = "beginners_selectionbfs_abc088d"
+path = "src/contest/beginners_selection/bfs/abc088d.rs"
+    [[bin]]
+name = "beginners_selectionbfs_agc033a"
+path = "src/contest/beginners_selection/bfs/agc033a.rs"
+    [[bin]]
+name = "beginners_selectionbfs_arc005c"
+path = "src/contest/beginners_selection/exhaustive/abc095c.rs"
+    [[bin]]
+name = "beginners_selectionbfs_sumitb2019d"
+path = "src/contest/beginners_selection/exhaustive/sumitb2019d.rs"
+    [[bin]]
+name = "beginners_selectionexhaustive_joi2007hoc"
+path = "src/contest/beginners_selection/exhaustive/joi2007hoc.rs"
     
