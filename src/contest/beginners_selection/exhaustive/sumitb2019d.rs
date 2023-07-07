@@ -1,3 +1,6 @@
+#![feature(test)]
+extern crate cli_test_dir;
+extern crate test;
 use itertools::Itertools;
 use proconio::{input, marker::Chars};
 #[allow(clippy::uninlined_format_args)]
@@ -32,4 +35,25 @@ fn main() {
     println!("{}", ans);
     // let numbers: Vec<Vec<char>> = s.into_iter().combinations(3).collect();
     // println!("{}", numbers.into_iter().unique().count());
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use cli_test_dir::{CommandExt, TestDir};
+    use rand::Rng;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_main(b: &mut Bencher) {
+        let testdir = TestDir::new("beginners_selectionbfs_sumitb2019d", "");
+        let mut cmd = testdir.cmd();
+        let n = 30000;
+        let s: String = (0..n)
+            .map(|i| rand::thread_rng().gen_range(0, 10).to_string())
+            .collect();
+        b.iter(|| {
+            cmd.output_with_stdin(format!("{} {}", n, s));
+        });
+    }
 }

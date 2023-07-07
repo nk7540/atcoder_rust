@@ -104,18 +104,13 @@ rustc-hash = "=1.1.0"
 
 # ある長さまでは要素を「直に」持つ可変長配列
 smallvec = "=1.2.0"
+cli_test_dir = "0.1"
 
 # ---------------------------------------------------------------------
 
 [dev-dependencies]
 cli_test_dir = "0.1"
 
-[[bin]]
-name = "abc086a"
-path = "src/contests/beginners_selection/abc086a.rs"
-[[bin]]
-name = "abc081a"
-path = "src/contests/beginners_selection/abc081a.rs"
 [[bin]]
 name = "beginners_selection_abc081b"
 path = "src/contest/beginners_selection/abc081b.rs"
@@ -203,4 +198,10 @@ path = "src/contest/beginners_selection/exhaustive/sumitb2019d.rs"
     [[bin]]
 name = "beginners_selectionexhaustive_joi2007hoc"
 path = "src/contest/beginners_selection/exhaustive/joi2007hoc.rs"
+    [[bin]]
+name = "beginners_selectionexhaustive_s8pc6b"
+path = "src/contest/beginners_selection/exhaustive/s8pc6b.rs"
+    [[bin]]
+name = "beginners_selectionbinary_joi2009hob"
+path = "src/contest/beginners_selection/binary/joi2009hob.rs"
     
