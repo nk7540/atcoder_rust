@@ -15,13 +15,43 @@ fn main() {
     }
     // naive: O(n^3)=O(10^15)
     // sort: O(nlogn * 3)
-    // for each a[i], find partition in B, then in C: O(n(logn*2))
+    // for each a[i], find partition in B
+    // then for each b[j] with j greater than the partition, find partition in C
+    // total: O(nlogn + n*nlogn) // still got TLE
     a.sort_unstable();
     b.sort_unstable();
     c.sort_unstable();
+
     let mut ans = 0;
-    for ai in a {
-        // find partition in B
-        b.binary_search(&ai)
+    for bi in b {
+        // obtain the index of the first element of the second partition (gteq bi)
+        //
+        // binary_search returns Err(left) if Equal has not been encountered
+        // `left` will be the index where the target x should be inserted
+        // in other words, v[left - 1] < x && x < v[left]
+        //
+        // now we want the index whose value is greater than x even if there is a match
+        // if the case v[mid] == x is treated as Less, it achieves the greatness
+        let a_gteq_bi = a
+            .binary_search_by(|mid_v| {
+                if mid_v < &bi {
+                    Ordering::Less
+                } else {
+                    Ordering::Greater
+                }
+            })
+            .unwrap_or_else(|i| i);
+        // obtain the index of the first element of the second partition (gt bi)
+        let c_gt_bi = c
+            .binary_search_by(|mid_v| {
+                if mid_v <= &bi {
+                    Ordering::Less
+                } else {
+                    Ordering::Greater
+                }
+            })
+            .unwrap_or_else(|i| i);
+        ans += a_gteq_bi * (n - c_gt_bi);
     }
+    println!("{}", ans);
 }
