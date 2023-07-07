@@ -213,4 +213,7 @@ path = "src/contest/beginners_selection/dp/edpc_a.rs"
     [[bin]]
 name = "beginners_selectiondp_edpc_b"
 path = "src/contest/beginners_selection/dp/edpc_b.rs"
+    [[bin]]
+name = "beginners_selectiondp_edpc_c"
+path = "src/contest/beginners_selection/dp/edpc_c.rs"
     
