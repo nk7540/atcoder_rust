@@ -5,5 +5,11 @@ use proconio::input;
 // the trait `std::iter::Iterator` is not implemented for `[({integer}, {integer}); 4]`
 
 fn main() {
-    input! {}
+    input! {
+        d: usize, // total length of ring road
+        n: usize, // number of stores
+        m: usize, // number of orders
+        stores: [usize; n - 1],
+        recipients: [usize; m],
+    }
 }
