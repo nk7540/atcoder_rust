@@ -21,13 +21,7 @@ fn bfs(s: usize, n: usize, edges: &Vec<(usize, usize)>) -> u32 {
     let mut max_len = 0;
     while let Some(node) = deque.pop_front() {
         for &(es, et) in edges.iter() {
-            let visiting = if es == node {
-                et
-            } else if et == node {
-                es
-            } else {
-                continue;
-            };
+            let visiting = edges
             if dist[visiting - 1] == std::u32::MAX {
                 dist[visiting - 1] = dist[node - 1] + 1;
                 max_len = dist[visiting - 1];
@@ -38,13 +32,6 @@ fn bfs(s: usize, n: usize, edges: &Vec<(usize, usize)>) -> u32 {
     max_len
 }
 
-fn solve(n1: usize, n2: usize, m: usize, edges: Vec<(usize, usize)>) {
-    let n = n1 + n2;
-    let d1 = bfs(1, n, &edges);
-    let d2 = bfs(n, n, &edges);
-    println!("{}", d1 + d2 + 1);
-}
-
 fn main() {
     input! {
         n1: usize,
@@ -52,7 +39,14 @@ fn main() {
         m: usize,
         edges: [(usize, usize); m],
     }
-    solve(n1, n2, m, edges);
+    let edges = edges
+        .iter()
+        .flat_map(|&(s, t)| vec![(s, t), (t, s)])
+        .collect();
+    let n = n1 + n2;
+    let d1 = bfs(1, n, &edges);
+    let d2 = bfs(n, n, &edges);
+    println!("{}", d1 + d2 + 1);
 }
 
 #[cfg(test)]

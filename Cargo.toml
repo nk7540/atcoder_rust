@@ -237,4 +237,7 @@ path = "src/contest/abc309/e.rs"
     [[bin]]
 name = "abc309_f"
 path = "src/contest/abc309/f.rs"
+    [[bin]]
+name = "playground_main"
+path = "src/contest/playground/main.rs"
     
