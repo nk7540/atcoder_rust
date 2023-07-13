@@ -1,8 +1,6 @@
-#![feature(test)]
-extern crate cli_test_dir;
-extern crate test;
-use std::collections::VecDeque;
+use std::{collections::VecDeque, ops::Index};
 
+use petgraph::{graph::NodeIndex, visit::Bfs, Graph};
 use proconio::input;
 #[allow(clippy::uninlined_format_args)]
 // Unsupported features in 1.42.0
@@ -13,19 +11,18 @@ use proconio::input;
 /// s: start
 /// n: # of nodes
 /// returns the largest shortest path length from s and its node
-fn bfs(s: usize, n: usize, edges: &Vec<(usize, usize)>) -> u32 {
+fn bfs(s: usize, n: usize, adj_list: &[Vec<usize>]) -> u32 {
     let mut deque = VecDeque::new();
     let mut dist = vec![std::u32::MAX; n];
     deque.push_back(s);
-    dist[s - 1] = 0;
+    dist[s] = 0;
     let mut max_len = 0;
     while let Some(node) = deque.pop_front() {
-        for &(es, et) in edges.iter() {
-            let visiting = edges
-            if dist[visiting - 1] == std::u32::MAX {
-                dist[visiting - 1] = dist[node - 1] + 1;
-                max_len = dist[visiting - 1];
-                deque.push_back(visiting);
+        for &adj in &adj_list[node] {
+            if dist[adj] == std::u32::MAX {
+                dist[adj] = dist[node] + 1;
+                deque.push_back(adj);
+                max_len = dist[adj];
             }
         }
     }
@@ -39,75 +36,18 @@ fn main() {
         m: usize,
         edges: [(usize, usize); m],
     }
-    let edges = edges
-        .iter()
-        .flat_map(|&(s, t)| vec![(s, t), (t, s)])
-        .collect();
     let n = n1 + n2;
-    let d1 = bfs(1, n, &edges);
-    let d2 = bfs(n, n, &edges);
+    let adj_list = edges
+        .iter()
+        .fold(vec![Vec::with_capacity(n); n], |mut acc, &(s, t)| {
+            let s = s - 1;
+            let t = t - 1;
+            acc[s].push(t);
+            acc[t].push(s);
+            acc
+        });
+    let d1 = bfs(0, n, &adj_list);
+    let d2 = bfs(n - 1, n, &adj_list);
+
     println!("{}", d1 + d2 + 1);
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use cli_test_dir::{CommandExt, ExpectStatus, OutputExt, TestDir};
-    use rand::Rng;
-    use test::Bencher;
-
-    #[test]
-    fn test_solve() {
-        let cases = [
-            (
-                "3 4 6
-1 2
-2 3
-4 5
-4 6
-1 3
-6 7",
-                "5",
-            ),
-            (
-                "7 5 20
-10 11
-4 5
-10 12
-1 2
-1 5
-5 6
-2 4
-3 5
-9 10
-2 5
-1 4
-11 12
-9 12
-8 9
-5 7
-3 7
-3 6
-3 4
-8 12
-9 11",
-                "4",
-            ),
-        ];
-
-        let testdir = TestDir::new("abc309_d", "");
-        for (i, (stdin, stdout)) in cases.iter().enumerate() {
-            let output = testdir.cmd().output_with_stdin(stdin).expect_success();
-            assert_eq!(
-                output.stdout_str(),
-                format!("{}\n", stdout),
-                "test case {}",
-                i + 1
-            );
-            assert!(output.stderr_str().is_empty(), "test case {}", i + 1);
-        }
-    }
-
-    #[bench]
-    fn bench_solve(b: &mut Bencher) {}
 }
