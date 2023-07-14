@@ -8,31 +8,37 @@ use proconio::input;
 fn main() {
     input! {
         n: usize, // 2000
-        a: [u32; n], // 10^9
+        a: [u64; n], // 10^9
     }
     // loop over pieces as the first piece selected
-    // max(a[i] + dp(rest))
-    let mut dp = vec![vec![0; n * 2]; n * 2];
-    for i in 0..n {
-        dp[i][i] = a[i];
-    }
-    for j in 1..=n {
-        for k in 0..n {
-            let kj = (k + j) % n;
+    // dp[start][end]
+    let mut dp = vec![vec![0; n]; n];
+    for diff in 0..n {
+        for i in 0..n {
+            let j = (i + diff) % n;
+            let i_inc = (i + 1) % n;
+            let j_dec = (j + n - 1) % n;
 
-            dp[k][k + j] = if (n - j) % 2 == 0 {
+            dp[i][j] = if (n - diff) % 2 == 0 {
                 // IOI
-                if a[k] > a[kj] {
-                    dp[k + 1][k + j]
+                // 0 if j == 0
+                if a[j] > a[i] {
+                    dp[i][j_dec]
                 } else {
-                    dp[k][k + j - 1]
+                    dp[i_inc][j]
                 }
             } else {
                 // JOI
-                (a[k] + dp[k + 1][k + j]).max(a[kj] + dp[k][k + j - 1])
-            }
+                // a[k] if j == 0
+                (dp[i_inc][j] + a[i]).max(dp[i][j_dec] + a[j])
+            };
         }
     }
-    let ans = (0..n).map(|i| a[i] + dp[i + 1][i + n]).max().unwrap();
+    // max(a[i] + dp(rest))
+    // let ans = (0..n)
+    //     .map(|i| a[i] + dp[(i + 1) % n][(i + n - 1) % n])
+    //     .max()
+    //     .unwrap();
+    let ans = (0..n).map(|i| dp[i][(i + n - 1) % n]).max().unwrap();
     println!("{}", ans);
 }
