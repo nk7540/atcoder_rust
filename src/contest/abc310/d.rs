@@ -27,19 +27,19 @@ fn main() {
         }
         acc
     });
-    let mut dp = vec![vec![0; t]; (1 << n) + 1];
-    dp[0][0] = 1;
-    for s in 1..=1 << n {
+    let mut dp = vec![vec![0; t + 1]; 1 << n];
+    dp[0][0] = 1; // no member, no team
+    for s in 1..1 << n {
         for ss in 0..s {
             // s contains ss
             // s ^ ss (members included in s but not ss) can form a new team
             if (s | ss) != s || !possible_teams[s ^ ss] {
                 continue;
             }
-            for team in 0..t {
+            for team in 1..t {
                 dp[s][team] += dp[ss][team - 1]
             }
         }
     }
-    println!("{}", dp[1 << n][t - 1]);
+    println!("{}", dp[1 << n - 1][t]);
 }
