@@ -258,4 +258,19 @@ path = "src/contest/abc310/d.rs"
     [[bin]]
 name = "abc310_e"
 path = "src/contest/abc310/e.rs"
+    [[bin]]
+name = "abc311_a"
+path = "src/contest/abc311/a.rs"
+    [[bin]]
+name = "abc311_b"
+path = "src/contest/abc311/b.rs"
+    [[bin]]
+name = "abc311_c"
+path = "src/contest/abc311/c.rs"
+    [[bin]]
+name = "abc311_d"
+path = "src/contest/abc311/d.rs"
+    [[bin]]
+name = "abc311_e"
+path = "src/contest/abc311/e.rs"
     
